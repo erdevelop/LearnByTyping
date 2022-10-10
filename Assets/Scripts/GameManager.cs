@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System.IO;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
     [SerializeField] Button addButton, showButton, clearAllButton, clearLastButton;
     [SerializeField] InputField newWordInputField, meanWordInputField;
-    [SerializeField] Text newWordText, meanWordText, newWordListText, meanWordListText, wordListNumberText;
+    [SerializeField] Text newWordText, meanWordText, newWordListTextT, meanWordListTextT, wordListNumberTextT;
+    [SerializeField] TMP_Text newWordListText, meanWordListText, wordListNumberText;
 
     List<string> newWordList = new List<string>();
     List<string> meanWordList = new List<string>();
@@ -18,11 +20,19 @@ public class GameManager : MonoBehaviour
 
     int wordListNumber;
 
+    [SerializeField] RectTransform rectTransform;
+    float rectNewHeight;
+
     // Start is called before the first frame update
     void Start()
-    {  
+    {
+        float currentRectHeight = rectTransform.rect.height;
+        currentRectHeight = rectNewHeight;
+        //rectTransform = GameObject.FindGameObjectWithTag("Content").GetComponent<RectTransform>();
+
         LoadWords();
         ShowList();
+        DynamicRecTransform(currentRectHeight);
     }
     // Update is called once per frame
     void Update()
@@ -87,14 +97,24 @@ public class GameManager : MonoBehaviour
         wordListNumber++;
         wordNumberList.Add(wordListNumber.ToString());
     }
+    public void DynamicRecTransform(float rectNewHeight)
+    {
+        rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, rectNewHeight);
+    }
     public void AddingNewWord()
     {
         if(newWordInputField.text != "" && meanWordInputField.text != "")
-        {
+        {   
+            //Debug.Log(rectTransform.rect.height);
+            
             ShowNewwordText();
             AddListNewWord();
             AddingWordListNumber();
+
+            DynamicRecTransform(rectNewHeight + 36.0f);
+
         }
+
         else
         {
             BlankWarning();
@@ -133,6 +153,7 @@ public class GameManager : MonoBehaviour
         SaveWords();
         LoadWords();
         ShowList();
+        DynamicRecTransform(1064.0f);
     }
     public void ClearListLastButton()
     {
@@ -143,6 +164,7 @@ public class GameManager : MonoBehaviour
         SaveWords();
         LoadWords();
         ShowList();
+        DynamicRecTransform(rectNewHeight - 36.0f);
     }
     //data save sytem Json format
     [System.Serializable]
@@ -151,6 +173,7 @@ public class GameManager : MonoBehaviour
         public List<string> newWordDataList;
         public List<string> meanWordDataList;
         public List<string> numberWordDataList;
+        public float rectHeightData;
     }
     public void SaveWords()
     {
@@ -158,6 +181,7 @@ public class GameManager : MonoBehaviour
         data.newWordDataList = newWordList;
         data.meanWordDataList = meanWordList;
         data.numberWordDataList = wordNumberList;
+        data.rectHeightData = rectNewHeight;
 
         string jsone = JsonUtility.ToJson(data);
 
@@ -174,6 +198,7 @@ public class GameManager : MonoBehaviour
             newWordList = data.newWordDataList;
             meanWordList = data.meanWordDataList;
             wordNumberList = data.numberWordDataList;
+            rectNewHeight = data.rectHeightData;
         }
     }
 }
