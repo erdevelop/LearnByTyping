@@ -6,14 +6,17 @@ using System.IO;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] Button addButton, showButton;
+    [SerializeField] Button addButton, showButton, clearAllButton, clearLastButton;
     [SerializeField] InputField newWordInputField, meanWordInputField;
-    [SerializeField] Text newWordText, meanWordText, newWordListText, meanWordListText;
+    [SerializeField] Text newWordText, meanWordText, newWordListText, meanWordListText, wordListNumberText;
 
     List<string> newWordList = new List<string>();
     List<string> meanWordList = new List<string>();
+    List<string> wordNumberList = new List<string>();
 
     string inputNewWord, inputMeanWord;
+
+    int wordListNumber;
 
     // Start is called before the first frame update
     void Start()
@@ -25,10 +28,29 @@ public class GameManager : MonoBehaviour
     void Update()
     { 
     }
+    public void ShowDemo()
+    {
+        for (int i = 0; i < 100; i++)
+        {
+            int demo = 777333;
+            demo++;
+            newWordList.Add(demo.ToString());
+            demo--;
+            meanWordList.Add(demo.ToString());
+            AddingWordListNumber();
+        }
+        for (int i = 0; i < 100; i++)
+        {
+            int demo = 33333;
+            demo++;
+            meanWordList.Add(demo.ToString());
+        }
+    }
     public void ShowList()
     {
         newWordListText.text = "";
         meanWordListText.text = "";
+        wordListNumberText.text = "";
 
         foreach (string newword in newWordList)
         {
@@ -37,7 +59,11 @@ public class GameManager : MonoBehaviour
         foreach (string meanword in meanWordList)
         {
             meanWordListText.text += $"\n{meanword}";
-        }    
+        }
+        foreach (string numberword in wordNumberList)
+        {
+            wordListNumberText.text += $"\n{numberword}";
+        }
     }
     public void AddNewWordField()
     {
@@ -50,10 +76,16 @@ public class GameManager : MonoBehaviour
     public void AddingNewWordButton()
     {
         AddingNewWord();
+        ShowList();
     }
     public void ShowListButton()
     {
         ShowList();
+    }
+    public void AddingWordListNumber()
+    {
+        wordListNumber++;
+        wordNumberList.Add(wordListNumber.ToString());
     }
     public void AddingNewWord()
     {
@@ -61,6 +93,7 @@ public class GameManager : MonoBehaviour
         {
             ShowNewwordText();
             AddListNewWord();
+            AddingWordListNumber();
         }
         else
         {
@@ -91,18 +124,40 @@ public class GameManager : MonoBehaviour
         newWordText.text = "Please enter new word...";
         meanWordText.text = "Please enter mean...";
     }
+    public void ClearListAllButton()
+    {
+        newWordList.Clear();
+        meanWordList.Clear();
+        wordNumberList.Clear();
+        wordListNumber = 0;
+        SaveWords();
+        LoadWords();
+        ShowList();
+    }
+    public void ClearListLastButton()
+    {
+        newWordList.RemoveAt(newWordList.Count -1);
+        meanWordList.RemoveAt(meanWordList.Count -1);
+        wordNumberList.RemoveAt(wordNumberList.Count -1);
+        wordListNumber--;
+        SaveWords();
+        LoadWords();
+        ShowList();
+    }
     //data save sytem Json format
     [System.Serializable]
     class SaveData
     {
         public List<string> newWordDataList;
         public List<string> meanWordDataList;
+        public List<string> numberWordDataList;
     }
     public void SaveWords()
     {
         SaveData data = new SaveData();
         data.newWordDataList = newWordList;
         data.meanWordDataList = meanWordList;
+        data.numberWordDataList = wordNumberList;
 
         string jsone = JsonUtility.ToJson(data);
 
@@ -118,6 +173,7 @@ public class GameManager : MonoBehaviour
 
             newWordList = data.newWordDataList;
             meanWordList = data.meanWordDataList;
+            wordNumberList = data.numberWordDataList;
         }
     }
 }
