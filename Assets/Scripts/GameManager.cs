@@ -7,9 +7,9 @@ using TMPro;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] Button addButton, showButton, clearAllButton, clearLastButton;
-    [SerializeField] InputField newWordInputField, meanWordInputField;
-    [SerializeField] Text newWordText, meanWordText, newWordListTextT, meanWordListTextT, wordListNumberTextT;
+    [SerializeField] Button addButton, showButton, clearAllButton, clearLastButton, deleteIndexButton;
+    [SerializeField] InputField newWordInputField, meanWordInputField, deleteIndexInputField;
+    [SerializeField] Text newWordText, meanWordText; //newWordListTextT, meanWordListTextT, wordListNumberTextT;
     [SerializeField] TMP_Text newWordListText, meanWordListText, wordListNumberText;
     [SerializeField] RectTransform rectTransform;
 
@@ -17,14 +17,14 @@ public class GameManager : MonoBehaviour
     List<string> meanWordList = new List<string>();
     List<string> wordNumberList = new List<string>();
 
-    string inputNewWord, inputMeanWord;
+    string inputNewWord, inputMeanWord, inputDeleteIndex;
 
-    int wordListNumber;
+    int wordListNumber, inputDeleteIndexNo;
 
     float rectLastHeight;
 
-    float rectMultiply = 41.0f;
-    float rectDefault = 1080.0f;
+    float rectMultiply = 41.0f;//her eklenen kelimeden sonra yüksekliğe eklenen değer//çıkarınca da çıkan değer
+    float rectDefault = 1080.0f;//RectTransform height ölçüsü
 
     void Start()
     {
@@ -183,6 +183,10 @@ public class GameManager : MonoBehaviour
     {
         inputMeanWord = meanWordInputField.text;
     }
+    public void DeleteIndexNoField()
+    {
+        inputDeleteIndex = deleteIndexInputField.text;
+    }
     public void AddingNewWordButton()
     {
         AddingNewWord();
@@ -274,6 +278,26 @@ public class GameManager : MonoBehaviour
         else
         {
             BlankWarning();
+        }
+        
+    }
+    public void DeleteIndexButton()
+    {
+        if(deleteIndexInputField.text != "")
+        {
+            wordListNumber--;
+
+            inputDeleteIndexNo = int.Parse(inputDeleteIndex);
+
+            newWordList.RemoveAt(inputDeleteIndexNo-1);
+            meanWordList.RemoveAt(inputDeleteIndexNo-1);
+            wordNumberList.RemoveAt(wordNumberList.Count-1);
+
+            ClearListsText();
+            ShowList();
+            SaveWords();
+            
+            deleteIndexInputField.text = "";
         }
         
     }
