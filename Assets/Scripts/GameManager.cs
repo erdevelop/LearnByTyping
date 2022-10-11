@@ -23,9 +23,9 @@ public class GameManager : MonoBehaviour
 
     float rectLastHeight;
 
-    float rectMultiply = 40.0f;
-    float rectDefault = 1064.0f;
-    // Start is called before the first frame update
+    float rectMultiply = 41.0f;
+    float rectDefault = 1080.0f;
+
     void Start()
     {
         
@@ -36,16 +36,14 @@ public class GameManager : MonoBehaviour
         SaveWords();
 
     }
-    // Update is called once per frame
     void Update()
     { 
     }
-
-    public void ShowDemo()
+    public void ShowDemo()//most100 buton adı
     {
         MostUsing100();
         DynamicRecTransform((newWordList.Count * rectMultiply) + rectDefault);
-        for (int i = 0; i < 99; i++)
+        for (int i = 0; i < 99; i++)//kelime sayısını artırırsan burayı değiştir
         {
             AddingWordListNumber();
 

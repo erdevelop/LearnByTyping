@@ -1215,8 +1215,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -448, y: -32}
-  m_SizeDelta: {x: 64, y: -64}
+  m_AnchoredPosition: {x: -464, y: -32}
+  m_SizeDelta: {x: 96, y: -64}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &981223672
 GameObject:
@@ -1350,7 +1350,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -224, y: -32}
+  m_AnchoredPosition: {x: -216, y: -32}
   m_SizeDelta: {x: 384, y: -64}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1034501957
@@ -1844,7 +1844,7 @@ MonoBehaviour:
   m_MovementType: 1
   m_Elasticity: 0.1
   m_Inertia: 1
-  m_DecelerationRate: 0.135
+  m_DecelerationRate: 0.4
   m_ScrollSensitivity: 1
   m_Viewport: {fileID: 575013275}
   m_HorizontalScrollbar: {fileID: 0}
