@@ -194,7 +194,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: ClearAll
+  m_Text: Reset
 --- !u!222 &122499125
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -294,7 +294,7 @@ MonoBehaviour:
   m_LineType: 0
   m_HideMobileInput: 0
   m_CharacterValidation: 0
-  m_CharacterLimit: 0
+  m_CharacterLimit: 18
   m_OnSubmit:
     m_PersistentCalls:
       m_Calls: []
@@ -1215,7 +1215,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -500, y: -32}
+  m_AnchoredPosition: {x: -448, y: -32}
   m_SizeDelta: {x: 64, y: -64}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &981223672
@@ -1350,8 +1350,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -232, y: -31.999756}
-  m_SizeDelta: {x: 460, y: -64.0005}
+  m_AnchoredPosition: {x: -224, y: -32}
+  m_SizeDelta: {x: 384, y: -64}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1034501957
 GameObject:
@@ -1590,7 +1590,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1295296824
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2400,8 +2400,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 264, y: -32}
-  m_SizeDelta: {x: 460, y: -64}
+  m_AnchoredPosition: {x: 248, y: -32}
+  m_SizeDelta: {x: 512, y: -64}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1848650640
 CanvasRenderer:
@@ -2591,7 +2591,7 @@ MonoBehaviour:
   m_LineType: 0
   m_HideMobileInput: 0
   m_CharacterValidation: 0
-  m_CharacterLimit: 0
+  m_CharacterLimit: 22
   m_OnSubmit:
     m_PersistentCalls:
       m_Calls: []
@@ -2890,7 +2890,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Show
+  m_Text: Most100
 --- !u!222 &2061006396
 CanvasRenderer:
   m_ObjectHideFlags: 0
