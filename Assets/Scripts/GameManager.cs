@@ -7,7 +7,7 @@ using TMPro;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] Button addButton, showButton, clearAllButton, clearLastButton, deleteIndexButton, myWordsButton;
+    [SerializeField] Button addButton, showButton, clearAllButton, clearLastButton, deleteIndexButton, myWordsButton, undoButton;
     [SerializeField] InputField newWordInputField, meanWordInputField, deleteIndexInputField;
     [SerializeField] Text newWordText, meanWordText; //newWordListTextT, meanWordListTextT, wordListNumberTextT;
     [SerializeField] TMP_Text newWordListText, meanWordListText, wordListNumberText;
@@ -20,6 +20,10 @@ public class GameManager : MonoBehaviour
     List<string> newWordListMy = new List<string>();
     List<string> meanWordListMy = new List<string>();
     List<string> wordNumberListMy = new List<string>();
+
+    List<string> undoWordList = new List<string>();//undo için yeni liste tanımlandı
+    List<string> undoMeanList = new List<string>();
+    List<string> undoNumberList = new List<string>();
 
     string inputNewWord, inputMeanWord, inputDeleteIndex;
 
@@ -291,15 +295,20 @@ public class GameManager : MonoBehaviour
     {
         if(newWordList.Count != 0 || meanWordList.Count != 0)
         {
-            newWordList.RemoveAt(newWordList.Count -1);
-            meanWordList.RemoveAt(meanWordList.Count -1);
-            wordNumberList.RemoveAt(wordNumberList.Count -1);
-            wordListNumber--;
-            DynamicRecTransform(rectTransform.rect.height - rectMultiply);
-            SaveWords();
-            LoadWords();
-            ClearListsText();
-            ShowList();
+            undoWordList.Add(newWordList[newWordList.Count - 1]);//yeni kelime en sondaki yeni listeye alındı
+            undoMeanList.Add(meanWordList[meanWordList.Count - 1]);
+            undoNumberList.Add(wordNumberList[wordNumberList.Count -1]);
+
+            newWordList.RemoveAt(newWordList.Count -1);//yeni kelime listesi en sondaki siliniyor
+            meanWordList.RemoveAt(meanWordList.Count -1);//yeni anlam listesindeki en sondaki siliniyor
+            wordNumberList.RemoveAt(wordNumberList.Count -1);//kelime numara listesindeki en sondaki siliniyor
+
+            wordListNumber--;//kelime numara 1 azaltılıyor
+            DynamicRecTransform(rectTransform.rect.height - rectMultiply);//kaydırma alanı yüksekliği azaltıldı
+            SaveWords();//kayıt
+            LoadWords();//yükleme
+            ClearListsText();//sahnedeki Text görünümler temizleniyor
+            ShowList();//sahnedeki Text görünümler listeler ile dolduruluyor
         }
         else
         {
@@ -315,9 +324,13 @@ public class GameManager : MonoBehaviour
 
             inputDeleteIndexNo = int.Parse(inputDeleteIndex);
 
-            newWordList.RemoveAt(inputDeleteIndexNo-1);
-            meanWordList.RemoveAt(inputDeleteIndexNo-1);
-            wordNumberList.RemoveAt(wordNumberList.Count-1);
+            undoWordList.Add(newWordList[inputDeleteIndexNo -1]);
+            undoMeanList.Add(meanWordList[inputDeleteIndexNo - 1]);
+            undoNumberList.Add(wordNumberList[wordNumberList.Count -1]);
+
+            newWordList.RemoveAt(inputDeleteIndexNo - 1);
+            meanWordList.RemoveAt(inputDeleteIndexNo - 1);
+            wordNumberList.RemoveAt(wordNumberList.Count - 1);
 
             ClearListsText();
             ShowList();
@@ -325,6 +338,25 @@ public class GameManager : MonoBehaviour
 
             deleteIndexInputField.text = "";
         }
+        
+    }
+    public void UndoButton()
+    {
+        newWordList.Add(undoWordList[0]);
+        meanWordList.Add(undoMeanList[0]);
+        wordNumberList.Add(undoNumberList[0]);
+
+        undoWordList.Clear();
+        undoMeanList.Clear();
+        undoNumberList.Clear();
+
+        DynamicRecTransform(rectTransform.rect.height + rectMultiply);
+
+        ClearListsText();
+        ShowList();
+        SaveWords();
+        
+        
         
     }
     public void MyWordsButton()//field üzerinden girilen kelimeleri ekrana getirir
